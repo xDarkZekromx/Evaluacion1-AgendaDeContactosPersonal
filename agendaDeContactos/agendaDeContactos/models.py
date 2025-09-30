@@ -9,7 +9,7 @@ class Contacto(models.Model):
         validators=[
             RegexValidator(
                 regex=r'^[29]\d{8}$',
-                message="El número debe comenzar con 2 (casa) o 9 (móvil) y tener entre 8 y 12 dígitos."
+                message="El número debe comenzar con 2 (casa) o 9 (móvil) y tener 9 dígitos."
             )
         ]
     )
