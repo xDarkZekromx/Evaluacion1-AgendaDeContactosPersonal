@@ -7,26 +7,20 @@
 {% block content %}
   <h1 class="text-2xl font-bold mb-4">Lista de Contactos</h1>
 
-     <!-- Contenedor con flex -->
-  <div class="flex justify-between items-center mb-4">
-    <!-- Boton de nuevo contacto -->
-    <a href="{% url 'nuevo_contacto' %}" 
-       class="bg-green-500 text-white px-4 py-2 rounded hover:scale-105 transition-all ease-in">
-       Nuevo Contacto
-    </a>
-
-    <!-- Barra de busqueda -->
+  <!-- Barra de Buscador -->
+  <div class="flex justify-end items-center mb-4">
     <form method="get" action="" class="flex gap-2">
       <input type="text" name="q" placeholder="Buscar por nombre o correo"
-             value="{{ request.GET.q }}"
+             value="{{ query }}"
              class="border border-gray-300 rounded px-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-blue-400">
       <button type="submit"
               class="bg-blue-500 text-white px-4 py-2 rounded hover:scale-105 transition-all ease-in">
         Buscar
       </button>
     </form>
-  </div>    
-    <!-- Tabla de contactos -->
+  </div>
+
+  <!-- Tabla de contactos -->
   <table class="min-w-full bg-white">
     <thead>
       <tr>
@@ -45,16 +39,17 @@
           <td class="py-2 px-4 border-b text-center">{{ contacto.correo }}</td>
           <td class="py-2 px-4 border-b text-center">{{ contacto.direccion }}</td>
           <td class="py-2 px-4 border-b text-center">
-            <menu class="flex flex-row gap-2 items-center justify-center text-white">
-              <a href="{% url 'detalle_contacto' contacto.id %}" class="bg-blue-500 hover:scale-105 transition-all ease-in px-2 py-1 rounded">Ver</a>
-              <a href="{% url 'editar_contacto' contacto.id %}" class="bg-yellow-500 hover:scale-105 transition-all ease-in px-2 py-1 rounded">Editar</a>
-              <a href="{% url 'eliminar_contacto' contacto.id %}" class="bg-red-500 hover:scale-105 transition-all ease-in px-2 py-1 rounded">Eliminar</a>
-            </menu>
+            <a href="{% url 'detalle_contacto' contacto.id %}"
+               class="bg-blue-500 hover:scale-105 transition-all ease-in px-2 py-1 rounded text-white">
+              Ver
+            </a>
           </td>
         </tr>
-        {% empty %}
+      {% empty %}
         <tr>
-          <td colspan="5" class="py-2 px-4 border-b text-center">No hay contactos disponibles.</td>
+          <td colspan="5" class="py-2 px-4 text-center text-gray-500">
+            No se encontraron contactos.
+          </td>
         </tr>
       {% endfor %}
     </tbody>

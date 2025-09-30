@@ -1,11 +1,19 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.db.models import Q
 from .models import Contacto
 from .form import ContactoForm
 
 # Create your views here.
 
 def lista_contactos(request):
-    contactos = Contacto.objects.all()
+    query = request.GET.get("q")
+    if query:
+        contactos = Contacto.objects.filter(
+            Q(nombre__icontains=query) | Q(correo__icontains=query)
+        )
+    else:
+        contactos = Contacto.objects.all()
+
     return render(request, 'personas/lista_contactos.html', {'contactos': contactos})
 
 def detalle_contacto(request, pk):

@@ -1,12 +1,23 @@
 from django.http import HttpResponse 
 from django.shortcuts import render
 from .models import Contacto
+from django.db.models import Q
 
 
 def inicio(request): 
     nombre = "Marcelo Hermosilla"
-    return HttpResponse(f"¡Bienvenidos a mi primera app Django, {nombre}!") 
+    return HttpResponse(f"¡Bienvenidos a mi primera agenda en Django, {nombre}!") 
+
+
 
 def lista_contactos(request):
-    contactos = Contacto.objects.all()
-    return render(request, 'agenda/lista.html', {'contactos': contactos}) 
+    query = request.GET.get("q", "")
+    if query:
+        contactos = Contacto.objects.filter(
+            Q(nombre__icontains=query) | Q(correo__icontains=query)
+        )
+    else:
+        contactos = Contacto.objects.all()
+
+    return render(request, "agenda/lista.html", {"contactos": contactos, "query": query})
+

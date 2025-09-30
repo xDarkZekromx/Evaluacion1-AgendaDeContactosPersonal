@@ -15,3 +15,6 @@ class Contacto(models.Model):
     )
     correo = models.EmailField()
     direccion = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.nombre
