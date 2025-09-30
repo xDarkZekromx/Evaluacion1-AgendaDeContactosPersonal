@@ -1,0 +1,41 @@
+{% extends 'personas/base.html' %}
+
+{% block title %}
+ Listado de Contactos
+{% endblock %}
+
+{% block header %}
+    <header class="w-full bg-red-600 text-white p-4 text-xl font-bold">
+        <h1>Listado de Contactos</h1>
+
+        <a href="{% url 'nuevo_contacto' %}">
+            Crear Nuevo Contacto
+        </a>
+
+    </header>
+
+{% endblock %}
+
+{% block main %}
+    <ul class="p-4 bg-gray-200 flex flex-col gap-4">
+    {% for personas in object_list %}
+        <li class="bg-white border border-gray-400 rounded shadow w-full flex flex-col p-2 gap-2"> 
+            <span>{{producto.nombre}}</span>
+            <span> Nombre del Contacto: {{personas.nombre}}</span>
+            <span> Número de Telefono del Contacto: {{personas.telefono}}</span> 
+            <span> Correo del Contacto: {{personas.correo}}</span> 
+            <span> Dirección del Contacto: {{producto.direccion}}</span> 
+
+            
+        </li>
+    {% empty %}
+        <li>No hay contactos disponibles.</li>
+    {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block footer %}
+    <footer>
+        <p>Mi Agenda Personal &copy; 2025</p>
+    </footer>
+{% endblock %}
