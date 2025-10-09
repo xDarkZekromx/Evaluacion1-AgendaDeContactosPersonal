@@ -31,7 +31,7 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 
 ALLOWED_HOSTS = [
     ".herokuapp.com"
-]
+]   
 
 
 # Application definition
